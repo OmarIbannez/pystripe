@@ -1,6 +1,5 @@
 Django==1.9
 gunicorn==19.4.3
 pkg-resources==0.0.0
-psycopg2==2.6.1
 requests==2.11.1
 stripe==1.41.1

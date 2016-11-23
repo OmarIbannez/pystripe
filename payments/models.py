@@ -1,6 +1,5 @@
 from django.db import models
 from core.models import BaseModel
-from django.contrib.postgres.fields import JSONField
 
 
 class Plan(BaseModel):
@@ -10,6 +9,5 @@ class Plan(BaseModel):
     interval = models.CharField(max_length=10, blank=True, null=True)
     interval_count = models.IntegerField(null=False)
     livemode = models.BooleanField(blank=False, default=False)
-    metadata = JSONField()
     name = models.CharField(max_length=255, blank=False, null=False)
     trial_period_days = models.IntegerField(null=False)
