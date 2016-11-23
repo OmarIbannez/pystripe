@@ -11,3 +11,6 @@ class Plan(BaseModel):
     livemode = models.BooleanField(blank=False, default=False)
     name = models.CharField(max_length=255, blank=False, null=False)
     trial_period_days = models.IntegerField(null=False)
+
+    def __str__(self):
+        return self.name
