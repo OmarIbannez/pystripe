@@ -1,28 +1,73 @@
+from payments.models import Plan
+import stripe
 
-tasks = {}
-event = lambda f: tasks.setdefault(f.__name__, f)
+valid_events = {
+    'plan.created': 'create_plan',
+    'plan.updated': 'update_plan',
+    'plan.deleted': 'delete_plan'
+}
+events = {}
+event = lambda f: events.setdefault(f.__name__, f)
 
 class EventManager:
 
     def __init__(self, event):
-        self.event = event
+        try:
+            self.event = stripe.Event.retrieve(event["id"])
+        except Exception as e:
+            raise Exception('This is not a valid event')
 
     def process(self):
-        if not self.event.type:
-            return False
-
         try:
             event_type = valid_events[self.event.type]
         except Exception as e:
-            return False
+            raise Exception('This event is not supported')
 
-        tasks[event_type]()
+        return events[event_type](self.event)
 
     @event
-    def update_plan():
-        print('PLAN UPDATED!!!!')
+    def create_plan(event):
+        data = {
+            'amount': event.data.object.amount,
+            'currency': event.data.object.currency,
+            'plan_id': event.data.object.id,
+            'interval': event.data.object.interval,
+            'interval_count': event.data.object.interval_count,
+            'livemode': event.data.object.livemode,
+            'name': event.data.object.name,
+            'trial_period_days': event.data.object.trial_period_days or 0,
+        }
+        plan = Plan(**data)
+        plan.save()
 
+    @event
+    def update_plan(event):
+        try:
+            plan = Plan.objects.get(plan_id=event.data.object.id)
+        except Plan.DoesNotExist:
+            raise Exception('You must create this event in the local database')
 
-valid_events = {
-    'plan.updated': update_plan
-}
+        data = {
+            'amount': event.data.object.amount,
+            'currency': event.data.object.currency,
+            'plan_id': event.data.object.id,
+            'interval': event.data.object.interval,
+            'interval_count': event.data.object.interval_count,
+            'livemode': event.data.object.livemode,
+            'name': event.data.object.name,
+            'trial_period_days': event.data.object.trial_period_days or 0,
+        }
+
+        for key, value in data.items():
+            setattr(plan, key, value)
+        plan.save()
+
+    @event
+    def delete_plan(event):
+        try:
+            plan = Plan.objects.get(plan_id=event.data.object.id)
+        except Plan.DoesNotExist:
+            raise Exception('You must create this event in the local database')
+
+        plan.deleted = True
+        plan.save()
