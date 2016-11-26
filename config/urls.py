@@ -18,7 +18,7 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
-from payments.views import WebhokView, AddCreditCard, create_suscription
+from payments.views import WebhokView, AddCreditCard, create_suscription, QuickPay
 from webapp.views import Dashboard
 from users.views import user_register
 
@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', WebhokView.as_view(), name='webhok'),
     url(r'^add_credit_card/$', AddCreditCard.as_view(), name='add_credit_card'),
+    url(r'^quick_pay/$', QuickPay.as_view(), name='quick_pay'),
     url(r'^create_suscription/$', create_suscription, name='create_suscription'),
     url(r'^dashboard/$', Dashboard.as_view(), name='dashboard'),
     url(r'^register/$', user_register, name='register'),

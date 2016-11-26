@@ -37,6 +37,9 @@ class WebhokView(View):
 class AddCreditCard(TemplateView):
     template_name = 'add_credit_card.html'
 
+class QuickPay(TemplateView):
+    template_name = 'quick_pay.html'
+
 
 @csrf_exempt
 def create_suscription(request):

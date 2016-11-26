@@ -1,0 +1,25 @@
+Payment Card Industry Data Security Standard
+
+Desarrollar y Mantener una Red Segura
+Requisito 1: Instalar y mantener una configuración de cortafuegos para proteger los datos de los propietarios de tarjetas.
+Requisito 2: No usar contraseñas del sistema y otros parámetros de seguridad predeterminados provistos por los proveedores.
+
+Proteger los Datos de los propietarios de tarjetas.
+Requisito 3: Proteger los datos almacenados de los propietarios de tarjetas.
+Requisito 4: Cifrar los datos de los propietarios de tarjetas e información confidencial transmitida a través de redes públicas abiertas.
+
+Mantener un Programa de Gestión de Vulnerabilidades
+Requisito 5: Usar y actualizar regularmente un software antivirus.
+Requisito 6: Desarrollar y mantener sistemas y aplicaciones seguras.
+
+Implementar Medidas sólidas de control de acceso
+Requisito 7: Restringir el acceso a los datos tomando como base la necesidad del funcionario de conocer la información.
+Requisito 8: Asignar una identificación única a cada persona que tenga acceso a un computador.
+Requisito 9: Restringir el acceso físico a los datos de los propietarios de tarjetas.
+
+Monitorizar y probar regularmente las redes
+Requisito 10: Rastrear y monitorizar todo el acceso a los recursos de la red y datos de los propietarios de tarjetas.
+Requisito 11: Probar regularmente los sistemas y procesos de seguridad.
+
+Mantener una Política de Seguridad de la Información
+Requisito 12: Mantener una política que contemple la seguridad de la información
